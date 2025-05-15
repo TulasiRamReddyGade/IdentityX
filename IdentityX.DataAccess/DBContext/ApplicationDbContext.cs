@@ -22,7 +22,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser,Applicatio
         modelBuilder.Entity<ApplicationEntity>().HasKey(x => x.Id);
         modelBuilder.Entity<ApplicationEntity>().Property(x => x.Id).ValueGeneratedOnAdd();
         modelBuilder.Entity<ApplicationEntity>().HasIndex(x => x.NormalizedName).IsUnique();
-        modelBuilder.Entity<ApplicationEntity>().Property(x => x.Active).HasDefaultValue(true);// TODO ApplicaitonActive is being populated as False by default
+        modelBuilder.Entity<ApplicationEntity>().Property(x => x.Active).HasDefaultValue(true);
         
         // ApplicationUserRelationsEntity 
         //
