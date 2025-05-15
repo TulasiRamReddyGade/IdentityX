@@ -28,6 +28,10 @@ if (builder.Environment.IsDevelopment())
     builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 }
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>( options => options.UseCosmos(builder.Configuration.GetConnectionString("CosmosConnectionString"),builder.Configuration.GetConnectionString("Cosmoskey"),builder.Configuration.GetConnectionString("CosmosDataBase")));
+}
 
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     {
