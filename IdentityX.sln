@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityX.Api", "IdentityX.Api\IdentityX.Api.csproj", "{720644E5-97FF-419E-B83C-848855F1758E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityX.BusinessLogic", "IdentityX.BusinessLogic\IdentityX.BusinessLogic.csproj", "{1453DD52-FECB-415D-87E1-B513EEEFF438}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityX.DataAccess", "IdentityX.DataAccess\IdentityX.DataAccess.csproj", "{DB1D9E21-FB1F-4880-8AEF-626577F57AEB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{720644E5-97FF-419E-B83C-848855F1758E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{720644E5-97FF-419E-B83C-848855F1758E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{720644E5-97FF-419E-B83C-848855F1758E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{720644E5-97FF-419E-B83C-848855F1758E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1453DD52-FECB-415D-87E1-B513EEEFF438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1453DD52-FECB-415D-87E1-B513EEEFF438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1453DD52-FECB-415D-87E1-B513EEEFF438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1453DD52-FECB-415D-87E1-B513EEEFF438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB1D9E21-FB1F-4880-8AEF-626577F57AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB1D9E21-FB1F-4880-8AEF-626577F57AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB1D9E21-FB1F-4880-8AEF-626577F57AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB1D9E21-FB1F-4880-8AEF-626577F57AEB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
