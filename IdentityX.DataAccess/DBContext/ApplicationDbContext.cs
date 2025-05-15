@@ -3,15 +3,16 @@ using IdentityX.DataAccess.Entities;
 using IdentityX.DataAccess.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace IdentityX.DataAccess.DBContext;
 
 public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRole, Guid>
 {
-
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    private readonly IConfiguration _configuration;
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options,IConfiguration configuration) : base(options)
     {
-        
+        _configuration = configuration;
     }
     public DbSet<ApplicationEntity> Applications { get; set; }
     public DbSet<ApplicationUserRelationsEntity> ApplicationUserRelations { get; set; }
@@ -19,6 +20,13 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser,Applicatio
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        if (_configuration["ASPNETCORE_ENVIRONMENT"] != "Development")
+        {
+            modelBuilder.Entity<ApplicationUserRelationsEntity>().ToContainer("ApplicationUserRelations");
+            modelBuilder.Entity<ApplicationEntity>().ToContainer("Applications");
+            modelBuilder.Entity<ApplicationUser>().ToContainer("ApplicationUser");
+            modelBuilder.Entity<ApplicationRole>().ToContainer("ApplicationRole");
+        }
         modelBuilder.Entity<ApplicationEntity>().HasKey(x => x.Id);
         modelBuilder.Entity<ApplicationEntity>().Property(x => x.Id).ValueGeneratedOnAdd();
         modelBuilder.Entity<ApplicationEntity>().HasIndex(x => x.NormalizedName).IsUnique();
