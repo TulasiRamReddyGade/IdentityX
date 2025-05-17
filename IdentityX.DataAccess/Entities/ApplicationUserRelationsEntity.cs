@@ -8,18 +8,14 @@ public class ApplicationUserRelationsEntity
     public Guid Id { get; set; }
     
     public Guid ApplicationId { get; set; }
-    [ForeignKey("ApplicationId")]
     public ApplicationEntity Application { get; set; }
     
     public Guid ApplicationUserId { get; set; }
-    [ForeignKey("ApplicationUserId")]
     public ApplicationUser ApplicationUser { get; set; }
     
     public Guid ApplicationRoleId { get; set; }
-    [ForeignKey("ApplicationRoleId")]
     public ApplicationRole ApplicationRole { get; set; }
-    public bool Active { get; set; }
+    public bool? Active { get; set; }
     public DateTime CreatedOn { get; set; }
     public DateTime UpdatedOn { get; set; }
-    public Guid CreatedById { get; set; }
 }

@@ -11,5 +11,7 @@ public class ApplicationEntity
     public DateTime UpdatedOn { get; set; }
     public bool? Active { get; set; }
     
+    public ICollection<ApplicationRoleEntity> ApplicationRoles { get; set; }
+    
     public ICollection<ApplicationUserRelationsEntity> ApplicationUserRelations { get; set; }
 }
