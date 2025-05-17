@@ -12,10 +12,12 @@ public class ApplicationController : ControllerBase
 {
     private readonly ILogger<ApplicationController> _logger;
     private readonly IApplicationService _applicationService;
-    public ApplicationController(ILogger<ApplicationController> logger, IApplicationService applicationService)
+    private readonly IRoleService _roleService;
+    public ApplicationController(ILogger<ApplicationController> logger, IApplicationService applicationService,IRoleService roleService)
     {
         _logger = logger;
         _applicationService = applicationService;
+        _roleService = roleService;
     }
     
     [HttpPost]
@@ -175,5 +177,58 @@ public class ApplicationController : ControllerBase
             throw new OperationFailedException(result.ErrorMessage ?? "Unable to update application");
         }
     }
-    
+
+    [HttpGet("{applicationId}/role")]
+    public async Task<IActionResult> GetApplicationRoles(Guid applicationId)
+    {
+        var result = await _roleService.GetRolesByApplicationId(applicationId);
+        if (result.Success && result.ResultVaule != null)
+        {
+            var value = result.ResultVaule;
+            var response = value.Select(x => new GetRolesByApplicationIdResponseDto()
+            {
+                ApplicationId = x.ApplicationId,
+                RoleName = x.RoleName,
+                Active = x.Active,
+                UpdatedOn = x.UpdateOn,
+                CreatedOn = x.CreateOn,
+                RoleId = x.RoleId,
+                NormalizedRoleName = x.NormalizedRoleName,
+            }).ToList();
+            return Ok(response);
+        }
+        throw new OperationFailedException(result.ErrorMessage ?? "Unable to retrieve roles");
+    }
+    [HttpPost("{applicationId}/role")]
+    public async Task<IActionResult> CreateRole([FromRoute] Guid applicationId,
+        [FromBody] CreateRoleRequestDto request)
+    {
+        RoleModel roleModel = new RoleModel()
+        {
+            ApplicationId = applicationId,
+            RoleName = request.RoleName
+        };
+        var result = await _roleService.CreateRoleAsync(roleModel);
+        if (result.ResultVaule!=null && result.Success)
+        {
+            var resultRoleModel = result.ResultVaule;
+            var response = new CreateRoleResponseDto()
+            {
+                ApplicationId = resultRoleModel.ApplicationId,
+                RoleId = resultRoleModel.RoleId,
+                RoleName = resultRoleModel.RoleName,
+                NormalizedRoleName = resultRoleModel.NormalizedRoleName,
+                CreatedOn = resultRoleModel.CreateOn,
+                UpdatedOn = resultRoleModel.UpdateOn,
+                Active = resultRoleModel.Active,
+            };
+            return CreatedAtAction("CreateRole",response);
+        }
+        else
+        {
+            string error = result?.ErrorMessage ?? "Unable to create role";
+            throw new OperationFailedException(error);
+        }
+    }
+
 }
