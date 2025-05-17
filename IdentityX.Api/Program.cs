@@ -23,15 +23,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-if (builder.Environment.IsDevelopment())
-{
-    builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
-}
-else
-{
-    builder.Services.AddDbContext<ApplicationDbContext>( options => options.UseCosmos(builder.Configuration.GetConnectionString("CosmosConnectionString"),builder.Configuration.GetConnectionString("Cosmoskey"),builder.Configuration.GetConnectionString("CosmosDataBase")));
-}
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+    builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
     {
@@ -49,6 +45,8 @@ builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
 
 builder.Services.AddTransient<IApplicationService, ApplicationService>();
 builder.Services.AddTransient<IApplicationRepository, ApplicationRepository>();
+builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<IRoleRepository, RoleRepository>();
 
 var app = builder.Build();
 
